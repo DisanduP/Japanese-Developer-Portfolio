@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name — Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #1a1a1a;
+            --white: #fafafa;
+            --gray: #666;
+            --light-gray: #e0e0e0;
+            --accent: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--white);
+            border-bottom: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 25px 60px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--black);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 50px;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--black);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 60px;
+            margin-top: 100px;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 300;
+            color: var(--gray);
+            max-width: 800px;
+            margin-bottom: 60px;
+            line-height: 1.4;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+            border-bottom: 2px solid var(--black);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .hero-cta:hover {
+            padding-right: 20px;
+        }
+
+        .hero-cta::after {
+            content: '→';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-cta:hover::after {
+            transform: translateX(10px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 150px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 80px;
+            line-height: 1.1;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            margin-bottom: 120px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .about-text p:first-child {
+            font-size: 1.3rem;
+            color: var(--black);
+            font-weight: 400;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+        }
+
+        .stat-item {
+            border-top: 1px solid var(--light-gray);
+            padding-top: 20px;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            letter-spacing: 0.5px;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: var(--light-gray);
+            border: 1px solid var(--light-gray);
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 60px 40px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: var(--black);
+            transition: height 0.4s ease;
+            z-index: 0;
+        }
+
+        .service-card:hover::before {
+            height: 100%;
+        }
+
+        .service-card * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:hover {
+            transform: scale(1.02);
+        }
+
+        .service-card:hover h3,
+        .service-card:hover p {
+            color: var(--white);
+        }
+
+        .service-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--gray);
+            margin-bottom: 30px;
+            transition: color 0.4s ease;
+        }
+
+        .service-card:hover .service-number {
+            color: var(--light-gray);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+            transition: color 0.4s ease;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--gray);
+            transition: color 0.4s ease;
+        }
+
+        /* Projects Section */
+        .projects-list {
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .project-item {
+            border-bottom: 1px solid var(--light-gray);
+            padding: 60px 0;
+            display: grid;
+            grid-template-columns: 100px 1fr 200px;
+            gap: 60px;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            padding-left: 30px;
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .project-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .project-info h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75rem;
+            padding: 5px 15px;
+            border: 1px solid var(--light-gray);
+            color: var(--gray);
+            letter-spacing: 0.5px;
+        }
+
+        .project-year {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            color: var(--gray);
+            text-align: right;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            margin-bottom: 40px;
+            line-height: 1;
+        }
+
+        .contact-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 60px;
+            line-height: 1.6;
+        }
+
+        .contact-email {
+            display: inline-block;
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+            border-bottom: 2px solid var(--black);
+            padding-bottom: 10px;
+            transition: all 0.3s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .contact-email:hover {
+            padding-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .contact-social {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 80px;
+        }
+
+        .social-link {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--black);
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .back-to-top {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: gap 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            gap: 15px;
+        }
+
+        .back-to-top::before {
+            content: '↑';
+            font-size: 1.2rem;
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--black);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav, section, .hero {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-item {
+                grid-template-columns: 60px 1fr;
+                gap: 30px;
+            }
+
+            .project-year {
+                grid-column: 2;
+                text-align: left;
+                margin-top: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav, section, .hero, footer {
+                padding-left: 25px;
+                padding-right: 25px;
+            }
+
+            .nav-links {
+                gap: 25px;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .contact-social {
+                flex-direction: column;
+                gap: 25px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+
+        /* Intersection Observer Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+
+    <nav>
+        <div class="logo">YOUR NAME</div>
+        <div class="nav-links">
+            <a href="#about">ABOUT</a>
+            <a href="#services">SERVICES</a>
+            <a href="#work">WORK</a>
+            <a href="#contact">CONTACT</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-label">DESIGNER × DEVELOPER</div>
+            <h1>Creating<br>meaningful<br>experiences</h1>
+            <p class="hero-subtitle">
+                Minimalist design philosophy meets functional excellence. 
+                Based in Tokyo, working globally.
+            </p>
+            <a href="#work" class="hero-cta">View selected works</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-number">01 / ABOUT</div>
+        <h2 class="section-title fade-in">Philosophy &<br>Approach</h2>
+        
+        <div class="about-content">
+            <div class="about-text fade-in">
+                <p>
+                    I believe in the power of simplicity. Every element serves a purpose, 
+                    every space has meaning, and every interaction feels natural.
+                </p>
+                <p>
+                    With over a decade of experience in digital design and development, 
+                    I've worked with startups and Fortune 500 companies to create products 
+                    that people love to use.
+                </p>
+                <p>
+                    My approach combines Japanese aesthetic principles with Swiss design 
+                    precision, resulting in work that is both beautiful and functional.
+                </p>
+            </div>
+            <div class="about-stats fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">YEARS EXPERIENCE</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">PROJECTS DELIVERED</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">AWARDS WON</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">POSSIBILITIES</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-number">02 / SERVICES</div>
+        <h2 class="section-title fade-in">What I do</h2>
+        
+        <div class="services-grid fade-in">
+            <div class="service-card">
+                <div class="service-number">001</div>
+                <h3>Brand Identity</h3>
+                <p>
+                    Crafting distinctive visual identities that communicate 
+                    your brand's essence with clarity and precision.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">002</div>
+                <h3>Web Design</h3>
+                <p>
+                    Designing responsive, accessible websites that prioritize 
+                    user experience and aesthetic harmony.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">003</div>
+                <h3>Development</h3>
+                <p>
+                    Building performant, scalable web applications using 
+                    modern technologies and best practices.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">004</div>
+                <h3>Art Direction</h3>
+                <p>
+                    Guiding creative vision from concept to execution, 
+                    ensuring consistency across all touchpoints.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">005</div>
+                <h3>UI/UX Design</h3>
+                <p>
+                    Creating intuitive interfaces that feel natural and 
+                    effortless, backed by user research.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">006</div>
+                <h3>Consultation</h3>
+                <p>
+                    Strategic guidance on design systems, workflows, and 
+                    digital transformation initiatives.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <div class="section-number">03 / SELECTED WORK</div>
+        <h2 class="section-title fade-in">Projects</h2>
+        
+        <div class="projects-list">
+            <div class="project-item fade-in">
+                <div class="project-number">001</div>
+                <div class="project-info">
+                    <h3>Zen Commerce</h3>
+                    <p class="project-description">
+                        E-commerce platform redesign focusing on minimal friction and maximum conversion
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">REACT</span>
+                        <span class="tag">SHOPIFY</span>
+                    </div>
+                </div>
+                <div class="project-year">2024</div>
+            </div>
+
+            <div class="project-item fade-in">
+                <div class="project-number">002</div>
+                <div class="project-info">
+                    <h3>Studio Minimal</h3>
+                    <p class="project-description">
+                        Architecture firm website showcasing projects through immersive photography
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">WEB DESIGN</span>
+                        <span class="tag">WEBFLOW</span>
+                        <span class="tag">ANIMATION</span>
+                    </div>
+                </div>
+                <div class="project-year">2024</div>
+            </div>
+
+            <div class="project-item fade-in">
+                <div class="project-number">003</div>
+                <div class="project-info">
+                    <h3>Kōhī App</h3>
+                    <p class="project-description">
+                        Mobile application for specialty coffee enthusiasts to discover and review cafés
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">MOBILE</span>
+                        <span class="tag">REACT NATIVE</span>
+                        <span class="tag">BRANDING</span>
+                    </div>
+                </div>
+                <div class="project-year">2023</div>
+            </div>
+
+            <div class="project-item fade-in">
+                <div class="project-number">004</div>
+                <div class="project-info">
+                    <h3>Monolith Magazine</h3>
+                    <p class="project-description">
+                        Digital publication platform with focus on typography and readability
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">EDITORIAL</span>
+                        <span class="tag">NEXTJS</span>
+                        <span class="tag">CMS</span>
+                    </div>
+                </div>
+                <div class="project-year">2023</div>
+            </div>
+
+            <div class="project-item fade-in">
+                <div class="project-number">005</div>
+                <div class="project-info">
+                    <h3>Form Follows</h3>
+                    <p class="project-description">
+                        Design studio rebrand emphasizing their philosophy of functional beauty
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">BRANDING</span>
+                        <span class="tag">PRINT</span>
+                        <span class="tag">DIGITAL</span>
+                    </div>
+                </div>
+                <div class="project-year">2023</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-number">04 / CONTACT</div>
+        
+        <div class="contact-content fade-in">
+            <h2 class="contact-title">Let's create<br>something<br>together</h2>
+            <p class="contact-subtitle">
+                I'm currently available for select freelance projects and full-time opportunities.
+                Feel free to reach out if you'd like to collaborate.
+            </p>
+            <a href="mailto:hello@yourname.com" class="contact-email">hello@yourname.com</a>
+            
+            <div class="contact-social">
+                <a href="#" class="social-link">TWITTER</a>
+                <a href="#" class="social-link">LINKEDIN</a>
+                <a href="#" class="social-link">GITHUB</a>
+                <a href="#" class="social-link">DRIBBBLE</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-text">© 2024 YOUR NAME. ALL RIGHTS RESERVED.</div>
+        <a href="#" class="back-to-top">BACK TO TOP</a>
+    </footer>
+
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
+        });
+
+        // Navbar Scroll Effect
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for Fade In Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Project Item Hover Effect
+        const projectItems = document.querySelectorAll('.project-item');
+        projectItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+            });
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>
